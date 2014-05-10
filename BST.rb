@@ -34,7 +34,7 @@ class BST
 
     ##
     # Returns true if the item has been added to the tree, false otherwise. Checks using the == operator
-    def contains item
+    def contains? item
         return containsHelper item, @root
     end
 
@@ -44,6 +44,12 @@ class BST
         @root = removeHelper item, @root
     end 
 
+    ##
+    # Emptys the tree
+    def clear!
+        @root = nil
+        @size = 0
+    end
     ##
     # Returns a preorder traversal of the tree
     def preorder
@@ -185,7 +191,10 @@ bst.add 20
 # bst.remove 10
 # puts bst.size
 # puts bst.root.item
-puts bst.preorder
+# puts bst.preorder
+bst.clear!
+puts bst.size
+puts bst.root
 # puts bst.contains 10
 # puts bst.contains 5
 # puts bst.contains 15
