@@ -1,9 +1,15 @@
 # A node class for the bst
 class BSTNode
+    include Comparable
+
     attr_accessor :left, :right, :item
 
     def initialize(item)
         @item = item
+    end
+
+    def <=>(other)
+        return @item <=> other.item
     end
 end
 
@@ -133,4 +139,3 @@ puts bst.root.item
 # puts bst.contains 5
 # puts bst.contains 15
 # puts bst.contains 143
-
