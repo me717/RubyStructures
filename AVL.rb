@@ -1,5 +1,5 @@
 # A node class for the bst
-class BSTNode
+class AVLNode
     include Comparable
 
     attr_accessor :left, :right, :height, :bf, :item
@@ -100,6 +100,7 @@ class AVL
 
     #balancing
     def balance root
+        update root
         if root.bf > 1
             if root.left root.left.bf < 0
                 root.left = rotateLeft root.left
@@ -115,6 +116,7 @@ class AVL
         return root
     end
 
+    #performs a right rotation
     def rotateRight root
         newRoot = root.left
         root.left = newRoot.right
@@ -124,6 +126,7 @@ class AVL
         return newRoot
     end
 
+    #performs a left rotation
     def rotateLeft root
         newRoot = root.right
         root.right = newRoot.left
@@ -136,16 +139,14 @@ class AVL
     def addHelper item, root
         if !root
             @size = @size + 1
-            return BSTNode.new item
+            return AVLNode.new item
         else
             if item < root.item
                 root.left = addHelper item, root.left
-                update(root)
-                return balance(root)
+                return balance root
             elsif item > root.item
                 root.right = addHelper item, root.right
-                update(root)
-                return balance(root)
+                return balance root
             else
                 return root
             end
@@ -174,11 +175,9 @@ class AVL
         else
             if item < root.item
                 root.left = removeHelper item, root.left
-                update root
                 return balance root
             elsif item > root.item
                 root.right = removeHelper item, root.right
-                update root
                 return balance root
             else
                 #removing leaf
@@ -198,7 +197,6 @@ class AVL
                     predecessor = getLargest root.left
                     removeHelper predecessor, root
                     root.item = predecessor
-                    update root
                     return balance root
                 end
             end
